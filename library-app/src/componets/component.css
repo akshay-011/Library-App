@@ -1,0 +1,10 @@
+.navbar-text{
+    text-transform: none !important;
+    margin-left: 0.4vw;
+    margin-right: 2vw; 
+    font-weight: bold;
+
+}
+.navbar{
+    background-color: rgba((rgb(41, 41, 41)), green, blue, alpha);
+}

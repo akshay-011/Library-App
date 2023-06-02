@@ -1,0 +1,73 @@
+    Database
+---------------
+1.USER
+    1.Name
+    2.Place
+    3.Age
+    4.Email
+    5.Education
+    6.Contact Info
+    7.Password
+    8.username
+    
+    9.isOnline --> boolean
+    10.List of Liked Books
+    11.isBlocked --> boolean
+
+2.BOOK
+{ Compalsory to add a book
+    1.Title
+    2.Author Name
+    3.Small Description
+    4.Publication Year
+    5.Genre
+    6.Unique Identifier( ID )
+    7.ISBN No.
+}
+    8.Comments List --> {UserId : " Comment " }
+    9.Time stamp (Auto)
+
+3.ADMIN
+    1.View & Edit Users
+    2.Block and Delete User
+    3.Seperate Login Page
+    4.List & Manage books
+    5.Show the Book avilable or not
+    6.Send Email when period is almost over
+    7.Can add Book
+
+
+
+        Pages
+----------------------
+        HOME
+    -----------
+        1.List of 20 Books new
+            1.Clickable page or Table view
+            2.Full details of Book in a page
+        2.Profile Page
+            1.Update Info
+            2.No. of books rented
+
+
+        Common Features
+----------------------------
+    1.Nav Bar
+        1.Logo Sign In /Login 
+        2.All the basic routes
+    2.Log out Button/Icon
+
+
+CODES
+
+11000 -> Duplicate Error
+400   -> Invalid Data / Incomplete Data
+422   -> Duplicate Data
+408   -> Request timeout
+407   -> User not found
+401   -> Invalid password   
+500   -> Internal Server Error
+403   -> Not Loged in
+409   -> Already Loged in
+410   -> Not Updated
+411   -> User Blocked
