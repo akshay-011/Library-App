@@ -1,4 +1,4 @@
-import { Backdrop, Box, Card, CardActions, CardHeader, CardMedia, CircularProgress, Grid, IconButton, Typography, } from '@mui/material';
+import { Backdrop, Box, Card, CardActions, CardHeader, CardMedia, CircularProgress, Divider, Grid, IconButton, Typography, } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -82,10 +82,9 @@ const Home = (props) => {
       <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 2, sm: 10, md: 15 }}  >
       {
         bookData.map((book,index) => {
-          let no = randomNumber(images);
           return (
             <Grid item xs={2} sm={2} md={5} key={index} >
-            <Card  
+            <Card
             sx={{ width:'30vw',
             height:'40vh',
             display:'flex',
@@ -95,7 +94,7 @@ const Home = (props) => {
             position:'static',
             opacity:0.9,
               }}
-             className='book-card' 
+             className='book-card'
              >
                 <Box sx={{
                   display:'flex',
@@ -120,6 +119,7 @@ const Home = (props) => {
                   </Typography>
                   <span style={{ fontFamily:"'Lora', serif" }} >{ book.author }</span>
                 </Box>
+                  <Divider color='red' />
                 <CardActions disableSpacing sx={{ justifyContent:'start', height:'50%', alignItems:'end', marginBottom:3 }} >
                   <IconButton onClick={() => {
                     setLikedBooks((likes) => [...likes, book._id]);
@@ -127,6 +127,9 @@ const Home = (props) => {
                   }} >
                     { likedBooks.indexOf(book._id) !==-1 ? <FavoriteIcon fontSize='medium' sx={{ color:pink[500] }} /> : <FavoriteBorderIcon fontSize='medium' /> }
                   </IconButton>
+                  {
+                    book.avialable ? <Typography sx={{ marginLeft:'70%' }} variant='body1' color={"green"} >Avialable</Typography> : <Typography sx={{ marginLeft:'60%' }} variant='body1' color={"red"} >Not Avialable</Typography>
+                  }
                 </CardActions>
             </Card>
             </Grid>

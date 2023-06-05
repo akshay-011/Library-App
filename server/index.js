@@ -127,7 +127,7 @@ app.post("/add_book", async (req, res) => {
 
 // getting book
 app.get("/get_books", async (req, res) => {
-    if(req.session.user || req.session.admin ){
+    try{
         try{
             const doc = await BookModel.find();
             res.send(doc);
@@ -137,7 +137,7 @@ app.get("/get_books", async (req, res) => {
             res.staus(500).send("Server Time out")
         }
         }
-        else{
+        catch{
             res.status(403).send("Plz login")
         }
 })
@@ -172,22 +172,23 @@ app.post("/logout", async (req,res) => {
 
 // admin getting all users
 app.get("/get_users", async (req,res) => {
-    if(req.session.admin){
+    try{
         const users = await UserModel.find();
         res.send(users);
     }
-    else{
+    catch{
         res.status(403).send("Login as Admin to get this content")
     }
 })
 
 // admin deleting user
-app.delete("/delete_user", async (req, res) => {
-    if(req.session.admin){
-        var result = await UserModel.findByIdAndDelete(req.body.id);
+app.post("/delete_user", async (req, res) => {
+    try{
+        console.log(req.body.id)
+        var result = await UserModel.findOneAndDelete({_id:req.body.id});
         res.status(200).send("Deleted");
     }
-    else{
+    catch(err){
         if(req.session.user){
             var result = await UserModel.findByIdAndDelete(req.session.user._id);
             res.status(200).send("Deleted");
@@ -221,12 +222,18 @@ app.post("/rent_book", async (req, res) => {
     console.log(bookId, userId);
     var r = await UserModel.findByIdAndUpdate({ _id:userId }, {rentedBook: { rented:true, bookId:bookId } })
     var rs = await BookModel.findByIdAndUpdate({_id: bookId }, { avialable:false });
-    if(!r){
+    if(!r && !rs ){
         return res.status(500).send("Not Updated")
     }
     else{
         return res.status(200).send("Done")
     }
+})
+// delete boook
+app.post("/delete_book", async (req, res)=> {
+    const { id } = req.body;
+    const s = await BookModel.findOneAndDelete({_id:id});
+    return res.send("deleted...");
 })
 
 // Port Listening

@@ -4,18 +4,18 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { Link } from 'react-router-dom';
 import logo from "../assets/book.png"
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
-import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PeopleIcon from '@mui/icons-material/People';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
 import "./component.css";
 
 
 
 const NavBar = (props) => {
-  console.log(props.admin)
   return (
     <Box sx={{ display:'flex', margin:0, position:'sticky',flex:.2, zIndex:1 }} >
         <AppBar sx={{ backgroundColor:'rgb(41, 41, 41)', margin:0 }} >
@@ -23,17 +23,41 @@ const NavBar = (props) => {
             props.admin === true ? 
             <Toolbar sx={{ textAlign:'center', display:'flex' }} >
               <div style={{
-                width:'80%',
+                width:'60%',
                 display:'flex',
                 justifyContent:'center'
               }} >
-                <Typography variant='h6' >Admin</Typography>
+                <Link to={'/admin'} style={{ marginRight:'2vw', textDecoration:'none', color:'white' }}  >
+                  <Typography variant='h6' sx={{ fontWeight:'bolder' }} >Admin</Typography>
+                </Link>
               </div>
-              <div>
-                <Link to={'/signout'} > 
-                    <Button onClick={() => props.setAdmin(false) }   disableRipple sx={{ color:'white' }} >
+              <div style={{
+                display:'flex',
+                flexDirection:'row',
+                flexWrap:'wrap',
+              }} >
+                <Link to={'/admin/users'} style={{ marginRight:'2vw' }}  > 
+                    <Button  disableRipple sx={{ color:'white' }} >
+                      <PeopleIcon />
+                      <Typography style={{ textTransform:'none', fontWeight:'bold', fontSize:'1.1em',marginLeft:'0.5rem' }} >Users</Typography>
+                    </Button>
+                  </Link>
+                  <Link to={'/admin/books'} style={{ marginRight:'2vw' }} > 
+                    <Button   disableRipple sx={{ color:'white' }} >
+                      <LibraryBooksIcon />
+                      <Typography style={{  textTransform:'none', fontWeight:'bold', fontSize:'1.1em',marginLeft:'0.5rem' }} >Books</Typography>
+                    </Button>
+                  </Link>
+                  <Link to={'/admin/addBook'} style={{ marginRight:'2vw' }} > 
+                    <Button disableRipple sx={{ color:'white' }} >
+                      <BookmarkAddIcon />
+                      <Typography style={{ textTransform:'none', fontWeight:'bold', fontSize:'1.1em',marginLeft:'0.5rem' }} >Add Book</Typography>
+                    </Button>
+                  </Link>
+                <Link to={'/signout'} style={{ marginRight:'2vw' }} > 
+                    <Button  disableRipple sx={{ color:'white' }} >
                       <LogoutIcon />
-                      <Typography style={{ marginLeft:'0.5vw', marginRight:'2vw', textTransform:'none', fontWeight:'bold', fontSize:'1.1em'}} >Log out</Typography>
+                      <Typography style={{ textTransform:'none', fontWeight:'bold', fontSize:'1.1em',marginLeft:'0.5rem' }} >Log out</Typography>
                     </Button>
                   </Link>
               </div>
@@ -88,7 +112,6 @@ const NavBar = (props) => {
                   </Link>
                   :
                   null
-
                 }
                 </Box>
             </Toolbar>

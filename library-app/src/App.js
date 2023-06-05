@@ -10,14 +10,17 @@ import NavBar from './componets/NavBar';
 import HomePage from './componets/HomePage';
 import Profile from './componets/Profile';
 import AdminHome from "./componets/AdminHome";
+import AdminBookAdd from './componets/AdminBookAdd';
+import AdminUsers from './componets/AdminUsers';
+import AdminBooks from './componets/AdminBooks';
 
 axios.defaults.withCredentials = true;
 
 function Signout(props) {
   axios.post("http://localhost:9876/logout")
   .then((res) => {
-    props.nav("/login");
     props.destroy();
+    props.nav("/login");
   })
   .catch((err) => {
     console.log("signout err ", err);
@@ -27,6 +30,7 @@ function Signout(props) {
 }
 
 function App() {
+  document.title = "ShelfMaster" 
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,10 +38,9 @@ function App() {
 
 
   useEffect(() => {
-      if(location.pathname === "/signup" || location.pathname === "/login" || location.pathname === "/signout" || location.pathname === "/admin" ){
+      if(location.pathname === "/signup" || location.pathname === "/login" || location.pathname === "/signout" || location.pathname === "/admin" || location.pathname === "/admin/users" || location.pathname === "/admin/books" || location.pathname === "/admin/addBook" ){
         return ;
       }
-      console.log("path came ", location.pathname)
       axios.post("http://localhost:9876/user")
         .then((res) => {
           if(res.status === 200){
@@ -51,9 +54,9 @@ function App() {
           console.log("this err ", err);
           navigate("/login")
       })
-  },[navigate, admin])
+  },[admin, navigate])
   return (
-    <Box className="App" sx={{ display:'flex', flexDirection:'row', flex:1}} >
+    <Box className="App" sx={{ display:'flex', flexDirection:'row', flex:5}} >
       
       <NavBar user={user} admin={admin} setAdmin={setAdmin} />
       
@@ -61,6 +64,7 @@ function App() {
         <Route path='/signout' element={<Signout 
         destroy={() => {
           setUser({});
+          setAdmin(false)
         }} nav={navigate} />} />
 
         <Route path='/signup' element={ <SignUp nav={navigate} /> } />
@@ -69,6 +73,9 @@ function App() {
         <Route path='/' element={<HomePage user={user} nav={navigate} />} />
         <Route path='/profile' element={<Profile user={user} />} />
         <Route path="/admin" element={ <AdminHome setAdmins={setAdmin} nav={navigate} /> } />
+        <Route path='/admin/addBook' element={ <AdminBookAdd /> } />
+        <Route path="/admin/users" element={ <AdminUsers /> } />
+        <Route path='/admin/books' element={ <AdminBooks /> } />
       </Routes>
     </Box>
   );
